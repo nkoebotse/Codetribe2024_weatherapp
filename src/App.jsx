@@ -8,6 +8,7 @@ import getFormattedWeatherData from "./services/weatherService";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PrivacyBanner from "./Components/PrivacyBanner";   // Import the privacy banner
 
 function App() {
   const [query, setQuery] = useState({ q: "Polokwane" });
@@ -21,11 +22,9 @@ function App() {
       toast.info("Fetching weather for " + message);
 
       await getFormattedWeatherData({ ...query, units }).then((data) => {
-        toast.success(
-          `Successfully fetched weather for ${data.name}, ${data.country}.`
-        );
+       // toast.success("Successfully fetched weather data.");
 
-        console.log('data', data)
+        console.log('data', data);
         setWeather(data);
       });
     };
@@ -45,6 +44,9 @@ function App() {
     <div
       className={`mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br  h-fit shadow-xl shadow-gray-400 ${formatBackground()}`}
     >
+      {/* Show Privacy Banner */}
+      <PrivacyBanner />
+
       <TopButtons setQuery={setQuery} />
       <Inputs setQuery={setQuery} units={units} setUnits={setUnits} />
 
